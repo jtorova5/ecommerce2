@@ -1,0 +1,114 @@
+{
+    "products": [
+        {
+            "id": 1,
+            "title": "Jet",
+            "description": "Chocolatina x 12g",
+            "price": 700,
+            "thumbnail": "Jet.jpg",
+            "code": "cho001",
+            "stock": 500,
+            "category": "Chocolate",
+            "stat": true
+        },
+        {
+            "id": 2,
+            "title": "m&m's de maní",
+            "description": "m&m's x 49.3g",
+            "price": 4000,
+            "thumbnail": "m&msmani.jpg",
+            "code": "cho002",
+            "stock": 200,
+            "category": "Chocolate",
+            "stat": true
+        },
+        {
+            "id": 3,
+            "title": "m&m's de chocolate",
+            "description": "m&m's x 47.9g",
+            "price": 4000,
+            "thumbnail": "m&mschocolate.jpg",
+            "code": "cho003",
+            "stock": 200,
+            "category": "Chocolate",
+            "stat": true
+        },
+        {
+            "id": 4,
+            "title": "Milka de leche",
+            "description": "Chocolatina milka x 100g",
+            "price": 15000,
+            "thumbnail": "milka.jpg",
+            "code": "cho004",
+            "stock": 120,
+            "category": "Chocolate",
+            "stat": true
+        },
+        {
+            "id": 5,
+            "title": "Toblerone",
+            "description": "Chocolate x 100g",
+            "price": 13000,
+            "thumbnail": "Toblerone.jpg",
+            "code": "cho005",
+            "stock": 150,
+            "category": "Chocolate",
+            "stat": true
+        },
+        {
+            "id": 6,
+            "title": "Jumbo maní",
+            "description": "Chocolatina x 100g",
+            "price": 5200,
+            "thumbnail": "jumbomani.jpg",
+            "code": "cho006",
+            "stock": 100,
+            "category": "Chocolate",
+            "stat": true
+        },
+        {
+            "id": 7,
+            "title": "Wafer Jet",
+            "description": "Galleta cubierta de chocolate x 22g",
+            "price": 800,
+            "thumbnail": "Waferjet.jpg",
+            "code": "cho007",
+            "stock": 600,
+            "category": "Chocolate",
+            "stat": true
+        },
+        {
+            "id": 8,
+            "title": "Hershey's cookies n' creme",
+            "description": "Chocolatina x 43g",
+            "price": 4500,
+            "thumbnail": "Hersheyscookiesncreme.jpg",
+            "code": "cho008",
+            "stock": 80,
+            "category": "Chocolate",
+            "stat": true
+        },
+        {
+            "id": 9,
+            "title": "Hershey's chocolate",
+            "description": "Chocolatina x 43g",
+            "price": 4500,
+            "thumbnail": "Hersheyschocolate.jpg",
+            "code": "cho009",
+            "stock": 80,
+            "category": "Chocolate",
+            "stat": true
+        },
+        {
+            "id": 10,
+            "title": "Milky way",
+            "description": "Chocolate x 52.2g",
+            "price": 4000,
+            "thumbnail": "Milkyway.jpg",
+            "code": "cho010",
+            "stock": 150,
+            "category": "Chocolate",
+            "stat": true
+        }
+    ]
+}
