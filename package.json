@@ -13,12 +13,14 @@
   "author": "Jhonatan Toro Vásquez",
   "license": "MIT",
   "dependencies": {
+    "connect-mongo": "^4.6.0",
     "express": "^4.18.2",
     "express-handlebars": "^6.0.6",
+    "express-session": "^1.17.3",
     "handlebars": "^4.7.7",
+    "mongodb": "^4.14.0",
     "mongoose": "^6.9.0",
     "mongoose-paginate-v2": "^1.7.1",
-    "mongose": "^0.0.2-security",
     "populate": "^5.0.1",
     "socket.io": "^4.5.4"
   }
