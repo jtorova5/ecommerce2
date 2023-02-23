@@ -1,6 +1,6 @@
 
 body{
-    background-color: #ffffff;
+    background-color: rgb(245, 219, 70);
 }
 
 #chatBox {
@@ -8,13 +8,6 @@ body{
     padding: 5px;
     width: 100%;
 }
-
-/* #history p {
-    background-color: rgb(255, 255, 255);
-    padding: 5px;
-    width: fit-content;
-    border-radius: 5px;
-} */
 
 main {
     height: 100vh;
@@ -26,7 +19,145 @@ main {
     flex: 1;
 }
 
-/* .message-me {
+#loginMain {
+    background-color: rgb(245, 219, 70);
     display: flex;
+}
+
+#loginSection {
+    height: 60%;
+    margin: 10% 30% 0% 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: rgb(6, 6, 6);
+}
+
+.loginDiv {
+    text-align: center;
+    padding: 10%;
+}
+
+#formLogin {
+    width: 200px;
+}
+
+.loginTitle {
+    padding-bottom: 20%;
+}
+
+.loginButton {
+    margin-top: 20%;
+    padding: 10px 20px 10px 20px;
+}
+
+input {
+    margin: 5px;
+}
+
+#registerMain {
+    background-color: rgb(245, 219, 70);
+    display: flex;
+}
+
+#registerSection {
+    height: 60%;
+    margin: 10% 30% 0% 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: rgb(6, 6, 6);
+}
+
+#registerDiv {
+    text-align: center;
+    padding: 10%;
+}
+
+#formRegister {
+    display: grid;
+    justify-items: center;
+}
+
+#registerTitle {
+    margin-bottom: 20px;
+    margin-top: 10%;
+}
+
+.loginButtonRegister {
+    margin-top: 5%;
+    margin-bottom: 10%;
+    padding: 10px 20px 10px 20px;
+}
+
+#headerhome {
+    display: flex;
+    width: 100%;
+    height: 60px;
+    background-color: black;
+    color: white;
+    align-items: center;
     justify-content: end;
-} */
+}
+
+#headerMenu {
+    display: flex;
+    text-decoration: none;
+    list-style: none;
+    justify-content: center;
+}
+
+#headerMenu li {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#headerMenu li a {
+    text-decoration: none;
+    color: white;
+}
+
+#paginacion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#paginacion button {
+    background-color: black;
+    color: white;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 8px;
+    border-radius: 5%;
+}
+
+#page {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#perfil {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#perfilDatos {
+    background-color: black;
+    color: white;
+    width: 300px;
+    height: 300px;
+    margin-top: 3rem;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#perfilDatos p {
+    margin-top: 1rem;
+}
