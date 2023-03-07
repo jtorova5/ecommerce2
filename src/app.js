@@ -11,6 +11,8 @@ const session = require('express-session');
 const MongoConnect = require('connect-mongo');
 const routerViews = require('./routes/views.route');
 const routerSession = require('./routes/session.router');
+const InitPassport = require('./utils/passport.config');
+const passport = require('passport');
 
 mongoose.set('strictQuery', false)
 
@@ -41,11 +43,15 @@ server.use(session({
     saveUninitialized: true,
 }))
 
+InitPassport ();
+server.use (passport.initialize());
+server.use (passport.session());
+
 //routes
 server.use(routerViews);
 server.use("/api/session", routerSession);
 
-//routes mondb
+//routes mongodb
 server.use("/", viewRoute);
 server.use("/api/productsBd/", productsRouteDB);
 server.use("/api/cartsBd/", cartsRouteDB);

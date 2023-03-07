@@ -10,5 +10,6 @@ router.get('/', viewControllers.login);
 router.get('/register', viewControllers.register);
 router.get('/profile', viewControllers.profile);
 router.get('/logout', viewControllers.logout);
+router.get('/forgot-password', viewControllers.forgot);
 
 module.exports = router;
