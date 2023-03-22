@@ -22,8 +22,12 @@ const viewCart = async (req, res) => {
 }
 
 const login = async (req, res) => {
+    const page = req.query.page
+    const products = await ProductManager.getProduct(page);
+    const view = products.docs.map((products) => ({ title: products.title, description: products.description, price: products.price, stock: products.stock, thumbnail: products.thumbnail}));
     if(req.session.user) {
-        res.render('profile',{name:req.session.user.first_name});
+        res.render('home', { products: view, hasPrevPage: products.hasPrevPage, hasNextPage: products.hasNextPage, page: products.page, totalPages: products.totalPages, prevPage: products.prevPage, nextPage: products.nextPage, name: req.session.user._doc.first_name,
+            lastName: req.session.user._doc.last_name});
     } else {
         res.render('login');
     }
@@ -31,7 +35,12 @@ const login = async (req, res) => {
 
 const register = async (req, res) => {
     if(req.session.user) {
-        res.render('profile',{name:req.session.user.first_name});
+        res.render('profile',{
+            name: req.session.user._doc.first_name,
+            lastName: req.session.user._doc.last_name,
+            email: req.session.user._doc.email,
+            age: req.session.user._doc.age
+        });
     } else {
         res.render('register');
     }
@@ -63,4 +72,18 @@ const forgot = async (req, res) => {
     }
 }
 
-module.exports = {views, viewCart, login, register, profile, logout, forgot}
+const current = async (req, res) => {
+    if (req.session.user) {
+        res.render ('current', {
+            name: req.session.user._doc.first_name,
+            lastName: req.session.user._doc.last_name,
+            email: req.session.user._doc.email,
+            age: req.session.user._doc.age,
+            rol: req.session.user._doc.role
+        })
+    } else {
+        res.render ('login');
+    }
+}
+
+module.exports = {views, viewCart, login, register, profile, logout, forgot, current}
