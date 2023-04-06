@@ -13,6 +13,7 @@ const routerViews = require('./routes/views.route');
 const routerSession = require('./routes/session.router');
 const InitPassport = require('./utils/passport.config');
 const passport = require('passport');
+const { mongoURL, adminName, NODE, PORT } = require('./config/config.js');
 
 mongoose.set('strictQuery', false)
 
