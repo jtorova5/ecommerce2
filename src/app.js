@@ -13,6 +13,7 @@ const routerViews = require('./routes/views.route');
 const routerSession = require('./routes/session.router');
 const InitPassport = require('./utils/passport.config');
 const passport = require('passport');
+const userRouter = require('./routes/user.routes.bd');
 const { mongoURL, adminName, NODE, PORT } = require('./config/config.js');
 
 mongoose.set('strictQuery', false)
@@ -57,6 +58,7 @@ server.use("/", viewRoute);
 server.use("/api/productsBd/", productsRouteDB);
 server.use("/api/cartsBd/", cartsRouteDB);
 server.use("/api/chats/", chatsRoutes);
+server.use("/api/user/", userRouter);
 
 //Connection with MongoDB Atlas Database
 const test = async () => {

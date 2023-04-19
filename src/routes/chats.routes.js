@@ -1,6 +1,7 @@
 
 const { Router } = require('express');
 const chatsController = require('../controller/views.chat.controller')
+const { ifUserExists } = require('../utils/middleware');
 
 const router = Router();
 

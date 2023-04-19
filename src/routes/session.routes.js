@@ -5,6 +5,7 @@ const { hashPassword, comparePassword } = require('../utils/bcrypt');
 const passport = require ('passport');
 const { STRATEGY_REGISTER } = require('../utils/constants');
 const viewControllers = require('../controller/views.controller');
+const { mdlwOnlyAdmin } = require('../utils/middleware');
 
 const router = Router();
 
@@ -20,7 +21,7 @@ router.post('/login', async (req, res) => {
         req.session.user = { ...user, rol: 'user' };
         res.send(user);
     } else {
-        res.status(401).send("Email o contraseña incorrecta,intente nuevamente");
+        res.status(401).send("Wrong email or password, try again");
     }
 });
 
@@ -37,11 +38,11 @@ router.post('/forgot-password', async (req, res) => {
             await UsersModel.updateOne({ email }, { password: hash })
             res.send(user);
         }else {
-            res.status (404).send('Email no encontrado')
+            res.status (404).send('Email not found')
         }
     } catch (error) {
         console.log (error)
-        res.status(500).send('Error al crear usuario');
+        res.status(500).send('Error creating user');
     }
 })
 

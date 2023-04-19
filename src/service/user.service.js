@@ -1,8 +1,16 @@
 
-const UsersModel = require("../dao/models/users.model");
+class UserService {
+    constructor(dao) {
+        this.dao = dao;
+    }
 
-const getUser = () => UsersModel.find();
+    getUser =() => this.dao.get()
 
-module.exports = {
-    getUser,
+    insertUser =(user) => this.dao.insert(user)
+
+    updateUser =(user,id) => this.dao.update(user,id)
+
+    delete =(id)=>this.dao.delete(id)
 }
+
+module.exports = UserService

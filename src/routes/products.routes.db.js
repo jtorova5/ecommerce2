@@ -1,7 +1,7 @@
 
 const {Router} = require('express');
 const productsControllerDB = require('../controller/products.controller.db')
-
+const { mdlwOnlyAdmin } = require('../utils/middleware');
 
 const router =  Router();
 
