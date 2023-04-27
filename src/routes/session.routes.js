@@ -1,33 +1,25 @@
 
 const { Router } = require('express');
 const UsersModel = require('../dao/models/users.model');
-const { hashPassword, comparePassword } = require('../utils/bcrypt');
+const { hashPassword} = require('../utils/bcrypt');
 const passport = require ('passport');
-const { STRATEGY_REGISTER } = require('../utils/constants');
+const { STRATEGY_REGISTER, STRATEGY_LOGIN } = require('../utils/constants');
 const viewControllers = require('../controller/views.controller');
 const { mdlwOnlyAdmin } = require('../utils/middleware');
 
 const router = Router();
 
-router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
-    if (email == 'adminCoder@coder.com' && password == '123456') {
-        const userAdmin = { first_name: 'Admin', last_name: 'Coder', age: '25', email, password, role: 'admin' };
-        req.session.user = userAdmin;
-    }
-    const user = await UsersModel.findOne({ email });
-    const isValidPassword = await comparePassword(password, user.password);
-    if (user && isValidPassword) {
-        req.session.user = { ...user, rol: 'user' };
-        res.send(user);
-    } else {
-        res.status(401).send("Wrong email or password, try again");
-    }
-});
+router.post('/login', passport.authenticate(STRATEGY_LOGIN), async (req, res) => {
+    if (!req.user) {
+        return res.status(404).json({msg:'User not found'})
+    } 
+    req.session.user = req.user
+    res.json({msg:'ok'})
+})
 
 router.post('/register', passport.authenticate(STRATEGY_REGISTER) ,async (req, res) => {
     res.send(req.user);
-});
+})
 
 router.post('/forgot-password', async (req, res) => {
     const { email, password } = req.body;
@@ -46,7 +38,6 @@ router.post('/forgot-password', async (req, res) => {
     }
 })
 
-router.get('/current', viewControllers.current);
-
+router.get('/current',mdlwOnlyAdmin,viewControllers.current);
 
 module.exports = router;

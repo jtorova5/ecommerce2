@@ -28,19 +28,19 @@ const socket = io()
 // });
 
 const listChatsElement = document.getElementById('list-chats')
-listChatsElement.innerHTML = ""
-socket.on('init-chats', (chats) => {
-    chats.forEach((chat) => {
-        listChatsElement.innerHTML += `<li id=${chat._id} >${chat.userEmail} - ${chat.message}</li>`
-    })
+listChatsElement.innerHTML ="" 
+socket.on('init-chats', ( chats ) => {
+     chats.forEach((chat) => {
+     listChatsElement.innerHTML += `<li id=${chat._id} >${chat.userEmail} - ${chat.message}</li>`
+	 })
 })
 
 socket.on('add-message', (newMessage) => {
-    listChatsElement.innerHTML += `<li id="${newMessage._id}">${newMessage.userEmail} - ${newMessage.message}</li>`
+	listChatsElement.innerHTML += `<li id="${newMessage._id}">${newMessage.userEmail} - ${newMessage.message}</li>`
 })
 
-socket.on('delete-message'), (message) => {
+socket.on('delete-message'), (message)=>{
     //console.log (message)
     //const message = document.getElementById(`${message._id}`)
-    // message.remove(); 
-}
+   // message.remove(); 
+ }

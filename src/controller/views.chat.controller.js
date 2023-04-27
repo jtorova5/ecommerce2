@@ -1,53 +1,52 @@
 
-const dbChatsManager = require('../dao/mongoManager/dbChatsManager');
-const Chats = new dbChatsManager();
-// const {emitMessage} = require('../utils/socket.io')
-// const {emitDeleteMs} = require('../utils/socket.io')
+const BdChatsManager = require('../dao/mongoManager/dbChatsManager')
+const Chats = new BdChatsManager()
 
-const sendMessage = async (req, res) => {
+const sendMessage = async(req, res)=>{
     const message = req.body
+   
     const saveMessage = await Chats.sendMessage(message)
-    if (!saveMessage) {
+    if (!saveMessage){
+      return res.json({
+        msg: '',
+     });      
+    }else{
+        emitMessage(saveMessage)     
         return res.json({
-            msg: 'Message could not be sent',
-        });
-    } else {
-        emitMessage(saveMessage)
-        return res.json({
-            msg: 'Message sent',
-            playlist: saveMessage,
-        })
+          msg: 'Message sent',
+          playlist:saveMessage,
+        })  
     }
 }
 
-const getSentMessage = async (req, res) => {
+const getsendMessage = async(req, res)=>{
     const getMessage = await Chats.getMessage()
-    if (!getMessage) {
-        return res.json({
-            msg: 'Messages could not been displayed',
-        });
-    } else {
-        return res.json({
-            msg: 'Chats',
-            chats: getMessage
-        });
-    }
+  if (!getMessage){
+      return res.json({
+      msg: 'Message could not be displayed',
+   });      
+  }else{
+    return res.json({
+      msg: 'Chats',
+      chats:getMessage
+    });    
+ }
 }
 
-const deleteMessage = async (req, res) => {
-    const id = req.params.chid
-    const deleteMessage = await Chats.deleteMessage(id)
-    if (!deleteMessage) {
-        return res.json({
-            msg: 'Message could not be deleted',
-        });
-    } else {
-        emitDeleteMj(deleteMessage)
-        return res.json({
-            msg: 'Menssage deleted',
-            chats: deleteMessage
-        });
-    }
+const deleteMessage = async (req, res)=>{
+  const id = req.params.chid
+  const deleteMessaje = await Chats.deleteMessage(id)
+  if (!deleteMessaje){
+      return res.json({
+      msg: 'Message could not be deleted',
+   });      
+  }else{
+    emitDeleteMj(deleteMessaje)
+    return res.json({
+      msg: 'Message deleted',
+      chats:deleteMessaje
+    });      
+ }
 }
 
-module.exports = {sendMessage, getSentMessage, deleteMessage};
+module.exports ={sendMessage, getsendMessage, deleteMessage}

@@ -13,7 +13,7 @@
   "author": "Jhonatan Toro Vásquez",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^5.1.0",
+     "bcrypt": "^5.1.0",
     "commander": "^10.0.0",
     "connect-mongo": "^4.6.0",
     "dotenv": "^16.0.3",
@@ -30,5 +30,9 @@
     "populate": "^5.0.1",
     "socket.io": "^4.5.4",
     "uuid": "^9.0.0"
+  },
+  "type": "commonjs",
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0"
   }
 }

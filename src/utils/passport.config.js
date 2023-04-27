@@ -1,11 +1,10 @@
 
 const passport = require('passport');
 const local = require('passport-local');
-const UsersModel = require('../dao/models/users.model');
 const { hashPassword, comparePassword } = require('./bcrypt');
 const { STRATEGY_REGISTER, STRATEGY_LOGIN } = require('./constants');
-const dbSessionManager = require('../dao/mongoManager/dbSessionManager');
-const dbCartManager = require('../dao/mongoManager/dbCartManager');
+const BdSessionManager = require('../dao/mongoManager/dbSessionManager');
+const BdCartManager = require('../dao/mongoManager/dbCartManager');
 const { default: mongoose } = require('mongoose');
 
 
@@ -17,15 +16,15 @@ const InitPassport = () => {
     }, async (req, username, password, done) => {
         const { first_name, last_name, age } = req.body;
         try {
-            const userExist = await dbSessionManager.getEmail({ email: username});
+            const userExist = await BdSessionManager.getEmail({ email: username});
             if (userExist) {
                 done(null, false);
             } else {
                 const hash = await hashPassword(password);
-                const cart = await dbCartManager.CreateCarts();
+                const cart = await BdCartManager.CreateCarts();
                 const id = mongoose.Types.ObjectId(cart);
                 if (username === 'adminCoder@coder.com') {
-                    const user = await dbSessionManager.createSession({
+                    const user = await BdSessionManager.createSession({
                         first_name: first_name,
                         last_name: last_name,
                         age: age,
@@ -36,7 +35,7 @@ const InitPassport = () => {
                     });
                     done(null, user);
                 } else {
-                    const user = await dbSessionManager.createSession({
+                    const user = await BdSessionManager.createSession({
                         first_name: first_name,
                         last_name: last_name,
                         age: age,
@@ -58,8 +57,8 @@ const InitPassport = () => {
         passwordField: 'password',
     }, async (req, username, password, done) => {
         try {
-            const userExist = await dbSessionManager.getEmail({ email: username });
-            const isVadidPassword = await comparePassword(password, user.password);
+            const userExist = await BdSessionManager.getEmail({ email: username });
+            const isVadidPassword = await comparePassword(password, userExist.password);
             if (userExist && isVadidPassword) {
                 done(null, userExist);
             } else {
@@ -73,9 +72,9 @@ const InitPassport = () => {
         done(null, user._id);
     })
     passport.deserializeUser (async (_id,done)=>{
-        const user = await dbSessionManager.UserSession(_id);
+        const user = await BdSessionManager.UserSession(_id);
         done(null, user)
     })
-};
+}
 
 module.exports = InitPassport;

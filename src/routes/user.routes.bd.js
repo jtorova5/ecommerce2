@@ -2,7 +2,6 @@
 const {Router} = require("express");
 const {getUsers, insertUser, updateUser, deleteUser} = require("../controller/user.controller.bd");
 
-
 const userRouter = Router()
 
 userRouter.get('/',getUsers)

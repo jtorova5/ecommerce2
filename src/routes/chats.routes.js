@@ -1,12 +1,12 @@
 
-const { Router } = require('express');
-const chatsController = require('../controller/views.chat.controller')
+const {Router} = require('express');
+const chatsController = require('../controller/views.chat.controller');
 const { ifUserExists } = require('../utils/middleware');
 
-const router = Router();
+const router =  Router();
 
-router.get('/', chatsController.getSendMessage)
-router.post('/', chatsController.sendMessage);
-router.delete('/:chid', chatsController.deleteMessage);
+ router.get('/', chatsController.getsendMessage)
+ router.post('/',ifUserExists, chatsController.sendMessage);
+ router.delete('/:chid', chatsController.deleteMessage);
 
 module.exports = router;

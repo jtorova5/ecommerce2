@@ -8,7 +8,6 @@ class UserDTO {
         this.age = user.age;
         this.password = user.password;
         this.role = user.role;
-
     }
 }
 

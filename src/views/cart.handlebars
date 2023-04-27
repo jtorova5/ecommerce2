@@ -2,11 +2,12 @@
 <main id="main" class="container mt-5">
     <div class="row d-flex d-flex justify-content-between">
         {{#each carts}}
+        <H1>CARRITO</H1>
         <div class="card col-3 m-2 border border-4">
             <div class="card-body">
-                <h5 class="card-title text-center">{{title}}</h5>
-                <h2 class="card-text text-center ">$ {{price}}</h2>
-                <h1>Cantidad: {{quantity}}</h1>
+                <h1 class="card-title text-center">TOTAL: ${{priceTotal}}</h1>
+                <h2 class="card-text text-center ">{{products}}</h2>
+                <h5>Cantidad: {{quantityTotal}}</h5>
             </div>
         </div>
         {{/each}}

@@ -1,56 +1,60 @@
 
 const fs = require("fs");
 
-const writeFile = (path, data) =>
-    fs.promises.writeFile(path, JSON.stringify(data));
-
+const writeFile = (path, Carts) =>
+  fs.promises.writeFile(path, JSON.stringify(Carts));
+  
 const readFile = async (path) => {
-    const getCarts = await fs.promises.readFile(path, { encoding: 'utf-8' });
-    console.log({ getCarts })
-    const aux = getCarts ? getCarts : "[]"
-    const readParse = JSON.parse(aux);
-    return readParse;
-}
+  const GetCards = await fs.promises.readFile(path,{ encoding: 'utf-8' } );
+  const aux = GetCards ? GetCards : "[]";
+  const Result = JSON.parse(aux);
+  return Result;
+};
 
-class CartManager {
-    constructor(path) {
+  class CardsManager {
+      constructor(path) {
+        this.Cards = [];
         this.path = path;
-        this.carts = [];
-    }
-
+      }
+    
     CreateCarts = async () => {
-        const carts = await readFile(this.path);
-        const id = carts.length
-        carts.push({
-            id,
-            products: []
-        })
-        await writeFile(this.path, carts);
-        return id;
-    }
-
-    getCarts = async (id) => {
-        const carts = await readFile(this.path);
+      const Carts = await readFile (this.path);
+      const id = Carts.length
+      Carts.push({
+        id,
+        products:[]
+      })
+      await writeFile(this.path, Carts);
+      return id; 
+    };
+     
+    getCatrs = async (id)=>{
+      const carts = await readFile(this.path);
         if (carts[id]) {
             return carts[id];
+        } 
+        else {
+           return ({ msg: "Cart not found"} );
         }
-        throw new Error("Cart not found");
+      };
+       
+    addProductCart = async (cid, pid) => {
+      const carts = await readFile(this.path);
+      if (carts[cid]) {
+          const productsIndex = carts[cid].products.findIndex((p) => p.id == pid);
+          if (productsIndex !== -1) {
+              carts[cid].products[productsIndex].quantity++;
+              
+          } else {
+              carts[cid].products.push({ id: pid, quantity: 1 });
+              
+          }
+          await writeFile(this.path, carts);
+          return carts
+      } else {
+        return ({ msg: "Cart not found"} );
+      }
     }
+}  
 
-    addProductToCart = async (cid, pid) => {
-        const carts = await readFile(this.path);
-        if (carts[cid]) {
-            const productsIndex = carts[cid].products.findIndex((p) => p.id == pid);
-            if (productsIndex !== -1) {
-                carts[cid].products[productsIndex].quantity++;
-            } else {
-                carts[cid].products.push({ id: pid, quantity: 1 });
-            }
-            await writeFile(this.path, carts);
-        } else {
-            throw new Error("Cart not found");
-        }
-    }
-}
-
-module.exports = CartManager;
+module.exports = CardsManager;

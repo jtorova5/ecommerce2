@@ -1,18 +1,16 @@
 
-const dbCartManager = require("../dao/mongoManager/dbCartManager");
+const BdCartManager = require("../dao/mongoManager/dbCartManager");
 
 class CartService {
 
     constructor(manager) {
         this.dao = manager;
     }
-
-    CreateCarts = (cart) => dbCartManager.CreateCarts(cart);
-    getCartsId = (id) => dbCartManager.getCartsId(id);
-    getCarts = () => dbCartManager.getCarts();
-    addProductToCarts = (cid,pid) => dbCartManager.addProductToCarts(cid,pid);
-    updateToCart = (cid) => dbCartManager.updateToCart(cid);
-
+    CreateCarts = (cart) => BdCartManager.CreateCarts(cart);
+    getCartsId = (id) => BdCartManager.getCartsId(id);
+    getCarts = () => BdCartManager.getCarts();
+    addProductToCarts = (cid,pid) => BdCartManager.addProductToCarts(cid,pid);
+    updateToCart = (cid) => BdCartManager.updateToCart(cid);
 }
 
 module.exports = CartService;
