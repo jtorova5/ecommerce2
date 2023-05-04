@@ -1,0 +1,39 @@
+
+config:
+  plugins:
+    metrics-by-enpoint: {}
+  target: 'http://localhost:8080'
+  phases:
+    - duration: 20s
+      arrivalRate: 10
+scenarios:
+  - name: 'Login + Register'
+    flow:
+      - log: "Comienza secuencia un usuario"
+      - get:
+          url: '/create-user'
+          capture:
+            - json: "$.first_name"
+              as: "first_name"
+            - json: "$.last_name"
+              as: "last_name"
+            - json: "$.age"
+              as: "age"
+            - json: "$.email"
+              as: "email"
+            - json: "$.password"
+              as: "password"
+      - post:
+          url: '/api/session/register'
+          json:
+            first_name: "{{first_name}}"
+            last_name: "{{last_name}}"
+            age: "{{age}}"
+            email: "{{email}}"
+            password: "{{password}}"
+      - think: 2
+      - post:
+          url: '/api/session/login'
+          json:
+            email: "{{email}}"
+            password: "{{password}}"

@@ -2,7 +2,7 @@
 const { v4 } = require("uuid");
 const BdCartManager = require("../dao/mongoManager/dbCartManager");
 const BdProductManager = require("../dao/mongoManager/dbProductManager");
-
+const {mdwLogger} = require("../config/winston")
 
 const createCarts = async (req, res) => {
   const cart = req.body
@@ -79,17 +79,18 @@ const addProductToCart = async (req, res) => {
     msg: `Product added to cart: ${cid}`,
     cart: cartToUpdate,
   })
-};
+}
 
 const deleteProductToCart = async (req, res) => {
   const { cid, pid } = req.params;
+  req.mdwlLogger = `${cid}`;
   const Cart = await BdCartManager.getCartsId(cid);
   JSON.stringify(Cart)
   const findProductTocart = Cart.products.find((prod) => prod.id === pid)
   
   if (!findProductTocart) {
     return res.status(400).json({
-      msg: `EProduct with id ${pid} does not exist`,
+      msg: `Product with id ${pid} does not exist`,
     });
   } else {
     if (findProductTocart.quantity === 1) {
@@ -126,7 +127,7 @@ const deleteAllProductsCart = async (req, res) => {
 const updateCart = async (req, res) => {
   const { cid } = req.params;
   const body = req.body;
-  const Cart = await Carts.getCartsId(cid);
+  const Cart = await Cart.getCartsId(cid);
   
   if (!Cart) {
     return res.status(200).json({
@@ -193,9 +194,9 @@ const updateQuantityOnCart = async (req, res) => {
     } else {
       findProductTocart.quantity = quantity
       if (findProductTocart.quantity > quantity) {
-        cart.priceTotal = cart.priceTotal - product.price * findProductTocart.quantity
+        Cart.priceTotal = Cart.priceTotal - product.price * findProductTocart.quantity
       } else {
-        cart.priceTotal = cart.priceTotal + product.price * findProductTocart.quantity
+        Cart.priceTotal = Cart.priceTotal + product.price * findProductTocart.quantity
       }
     }
   }

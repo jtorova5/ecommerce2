@@ -13,7 +13,8 @@
   "author": "Jhonatan Toro Vásquez",
   "license": "MIT",
   "dependencies": {
-     "bcrypt": "^5.1.0",
+    "artillery-plugin-metrics-by-endpoint": "^1.0.2",
+    "bcrypt": "^5.1.0",
     "commander": "^10.0.0",
     "connect-mongo": "^4.6.0",
     "dotenv": "^16.0.3",
@@ -29,7 +30,8 @@
     "passport-local": "^1.0.0",
     "populate": "^5.0.1",
     "socket.io": "^4.5.4",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "winston": "^3.8.2"
   },
   "type": "commonjs",
   "devDependencies": {
