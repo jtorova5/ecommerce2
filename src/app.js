@@ -18,7 +18,9 @@ const userRouter = require('./routes/user.routes.bd');
 const errorList = require('./utils/errors');
 const { mdwLogger } = require('./config/winston');
 const faker = require('@faker-js/faker');
-const loggerTest = require('./routes/logger.router')
+const loggerTest = require('./routes/logger.router');
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
 mongoose.set('strictQuery', false)
 
@@ -27,6 +29,20 @@ server.listen(8080, ()=> {
     console.log(PORT);
 });
 
+//Swagger
+const config = {
+  definition: {
+    openapi:'3.0.0',
+    info:{
+      title:'API',
+      description:'API Ecommerce'
+    }
+  }
+  ,apis:[`${__dirname}/docs/**/*yml`]
+}
+
+const spec = swaggerJsDoc(config)
+server.use('/api-docs',swaggerUi.serve,swaggerUi.setup(spec))
 
 //handlerbars
 server.engine('handlebars', handlebars.engine());
@@ -47,6 +63,7 @@ server.use(session({
   secret: 'clavesecreta',
   resave: true,
   saveUninitialized: true,
+  cookie: {maxAge: 24*60*60*1000},
 }))
 
 server.use(errorList)
@@ -60,6 +77,18 @@ server.get ('/operacion-facil',(req,res)=>{
   try {
     let sum=0
     for (let i=0; i< 10000; i++){
+      sum = sum + i;
+    }
+    res.json= ({sum})
+  } catch (error) {
+    console.log (error)
+  }
+})
+
+server.get ('/operacion-dificil',(req,res)=>{
+  try {
+    let sum=0
+    for (let i=0; i< 1000000; i++){
       sum = sum + i;
     }
     res.json= ({sum})

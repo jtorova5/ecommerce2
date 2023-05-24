@@ -1,7 +1,7 @@
 
 const userModel = require('../models/users.model');
 
-class dbSessionManager {
+class BdSessionManager {
   getSession = async (email, password) => {
     return await userModel.findOne({ email, password });
   };
@@ -18,6 +18,11 @@ class dbSessionManager {
   UserSession = async (id) => {
     return await userModel.findById(id);
   };
+
+  updatePassword = (newPassword, id) => userModel.findByIdAndUpdate(id, { password: newPassword });
+
+  UpdateRole = async (id, role) => userModel.findByIdAndUpdate(id, role);
+
 }
 
-module.exports = new dbSessionManager();
+module.exports = new BdSessionManager();

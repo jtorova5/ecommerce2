@@ -30,4 +30,14 @@ const mdlwUserSession = (req,res,next) => {
     next();
 }
 
-module.exports = {mdlwOnlyAdmin, ifUserExists, mdlwUserSession}
+const adminPremiumPermission = async (req, res, next) => {
+    if (req.user.role !== 'admin' && req.user.role !== 'premium') {
+        return res.status(401).json({
+            status: 'error',
+            msg: 'Error, unauthorized user',
+        });
+    }
+    next();
+}
+
+module.exports = {mdlwOnlyAdmin, ifUserExists, mdlwUserSession, adminPremiumPermission}

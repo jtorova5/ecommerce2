@@ -91,4 +91,11 @@ const current = async (req, res) => {
     }
 }
 
-module.exports = {views, viewCart, login, register, profile, logout, forgot, current}
+const forgotPassword = async (req, res) => {
+    res.render('forgot-password');
+};
+const recoverPassword = async (req, res) => {
+    res.render('recover-password');
+}
+
+module.exports = {views, viewCart, login, register, profile, logout, forgot, current, forgotPassword, recoverPassword}

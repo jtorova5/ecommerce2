@@ -1,0 +1,91 @@
+
+paths:
+  /api/productsBd:
+    get:
+      summary: Obtiene todos los productos de la base de datos
+      tags:
+        - "Products"
+      responses:
+        "200": 
+          description: Se obtuvieron los productos correctamente
+        "500": 
+          description: No se pudieron obtener los productos correctamente
+    post:
+      summary: Agrega productos de la base de datos
+      tags:
+        - "Products"
+      responses:
+        "200": 
+          description: Se agregó el producto correctamente
+        "500": 
+          description: Se produjo un error al agregar el producto
+  /api/productsBd/{pid}:
+    get:
+      summary: Obtiene un producto de la base de datos medianto su ID
+      tags:
+        - "Products"
+      parameters:
+        - name: pid
+          in: path
+          description: identificador del producto
+          required: true
+          schema:
+            $type: String
+      responses:
+        "200": 
+          description: Se obtuvieron los productos correctamente
+        "500": 
+          description: No se pudo obtener el producto solicitado, revise el ID ingresado
+    put:
+      summary: Actualizar producto en la bd
+      tags:
+        - "Products"
+      parameters:
+        - name: pid
+          in: path
+          description: identificador del producto
+          required: true
+          schema:
+            $type: String
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/updateProduct'
+      responses:
+        "200": 
+          description: Se logró actualizar el producto correctamente
+        "500": 
+          description: No se pudo actualizar el producto,revise el ID, ó los campos ingresados
+    delete:
+      summary: Elimina producto en la bd
+      tags:
+        - "Products"
+      parameters:
+        - name: pid
+          in: path
+          description: identificador del producto
+          required: true
+          schema:
+            $type: String
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/updateProduct'
+      responses:
+        "200": 
+          description: Se logró eliminar el producto satisfactoriamente
+        "500": 
+          description: No se pudo eliminar el producto satisfactoriamente
+
+components:
+  requestBodies:
+    updateProduct:
+      type: object
+      properties:
+        price: 
+          type: String
+          description: precio del producto
+      example:
+        price: "2000"
