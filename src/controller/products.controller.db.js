@@ -20,7 +20,7 @@ const getProductsBd = async (req, res) => {
 
 const addProductBd = async (req, res, next) => {
   const product = req.body;
-  if (req.user.role !== 'user') {
+  if (req.user === 'premium') {
     product.owner = req.user.email;
     const newproduct = await ProductRepository.add(product);
     return res.json(newproduct);
@@ -56,21 +56,21 @@ const deleteProductBd = async (req, res)=>{
   const id = req.params.pid;
   const productExist = await Products.getProductId(id);
   if (!productExist) {
-    return res.json({ msg: 'Producto Inexistente' });
+    return res.json({ msg: 'Product does not exist' });
   }
   if (req.user.role === 'admin') {
     const deleteproduct = await Products.DeleteProductId(id);
-    return res.json({ msg: 'Producto Eliminado' });
+    return res.json({ msg: 'Product deleted' });
   }
   if (req.user.role === 'premium') {
     if (req.user.email == productExist.owner) {
       const deleteproduct = await Products.DeleteProductId(id);
-      return res.json({ msg: 'Producto Eliminado' });
+      return res.json({ msg: 'Product deleted' });
     } else {
-      return res.json({ msg: "You can't delte this prosuct" });
+      return res.json({ msg: "You can't delete this product" });
     }
   } else {
-    return res.json({ msg: "You can't delte this prosuct" });
+    return res.json({ msg: "You can't delete this product" });
   } 
 }
 
