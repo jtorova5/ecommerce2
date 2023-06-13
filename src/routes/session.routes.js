@@ -13,10 +13,11 @@ const router = Router();
 
 router.post('/register', passport.authenticate(STRATEGY_REGISTER) , sessioncontroller.sessionLogin);
 router.post('/login', passport.authenticate(STRATEGY_LOGIN), sessioncontroller.loginRegister);
+router.get('/logout', sessioncontroller.logout);
 router.post('/forgot-password', sessioncontroller.forgotPassword);
 router.get('/redirectForgotPassword/:token', sessioncontroller.redirectRecoverPassword);
 router.post('/forgotpassword', jwt.getPayloadByCookie, sessioncontroller.RecoverPassword);
-router.post('/premium/:uid', sessioncontroller.updateRole);
-router.get('/current', permissions.mdlwOnlyAdmin ,viewControllers.current);
+router.post('/premium/:uid',permissions.premiumDocs, sessioncontroller.updateRole);
+router.get('/current', permissions.mdlwUserSession ,viewControllers.current);
 
 module.exports = router;

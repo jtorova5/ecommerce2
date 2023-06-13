@@ -1,4 +1,6 @@
 
+const BdProductManager = require('../dao/mongoManager/dbProductManager');
+
 const mdlwOnlyAdmin = (req,res,next) => {
     if (req.session.user.role !== 'admin') {
         return res.status(401).json({
@@ -20,14 +22,23 @@ const ifUserExists = (req, res, next) => {
     next();
 }
 
-const mdlwUserSession = (req,res,next) => {
-    if (req.session.user) {
+const mdlwUserSession = (req, res, next) => {
+    if (!req.user || req.user?.role !== 'user') {
         return res.status(401).json({
             status: 'error',
-            msg: 'Error, unauthorized user'
-        })
+            msg: 'Error, unauthorized user',
+        });
     }
     next();
+}
+
+const premiumDocs = async (req,res,next) => {
+    if (req.user.documents) {
+        const docs = req.user.documents
+        const files = docs.map(File)
+        console.log(files);
+        res.status(200).json({files});
+    }
 }
 
 const adminPremiumPermission = async (req, res, next) => {
@@ -40,4 +51,4 @@ const adminPremiumPermission = async (req, res, next) => {
     next();
 }
 
-module.exports = {mdlwOnlyAdmin, ifUserExists, mdlwUserSession, adminPremiumPermission}
+module.exports = {mdlwOnlyAdmin, ifUserExists, mdlwUserSession, adminPremiumPermission, premiumDocs}

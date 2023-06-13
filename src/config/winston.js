@@ -18,7 +18,7 @@ const OptionWinston = {
         http: 'blue',
         debug: 'white',
     },
-}
+};
 
 const loggerProd = winston.createLogger({
     levels:OptionWinston.levels,
@@ -29,9 +29,12 @@ const loggerProd = winston.createLogger({
             winston.format.simple()
         )
     }),
-        new winston.transports.File({level:'error', filename:'./errors.log'})
-    ]
-})
+        new winston.transports.File({level:'error',
+        filename:'./errors.log',
+        fotmat: winston.format.simple(),
+    }),
+    ],
+});
 
 const loggerDev = winston.createLogger({
     levels:OptionWinston.levels,
@@ -45,12 +48,12 @@ const loggerDev = winston.createLogger({
         new winston.transports.File({level: 'warning',filename: './src/errors.log',format: winston.format.simple(),
       }),
     ],
-})
+});
 
 const mdwLogger = (req,res,next) => {
     req.logger = process.env.NODE_ENV ? loggerProd : loggerDev;
     req.logger.info(`${req.metod} - ${req.url}`);
     next();
-}
+};
 
 module.exports = {mdwLogger}
